@@ -1,42 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
+/* PT. Media Mandiri Design System */
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
+    /* Brand Colors - PT. Media Mandiri */
+    --brand-red: 0 61% 27%; /* #661a1c */
+    --brand-yellow: 48 72% 58%; /* #e1c431 */
+    --brand-blue: 205 100% 41%; /* #0075d3 */
+    
+    /* Core System Colors */
+    --background: 0 0% 100%; /* Pure white */
+    --foreground: 0 0% 15%; /* Dark charcoal */
+    
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
+    --card-foreground: 0 0% 15%;
+    
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
+    --popover-foreground: 0 0% 15%;
+    
+    /* Primary uses brand red */
+    --primary: 0 61% 27%;
+    --primary-foreground: 0 0% 100%;
+    
+    /* Secondary uses brand yellow */
+    --secondary: 48 72% 58%;
+    --secondary-foreground: 0 0% 15%;
+    
+    /* Accent uses brand blue */
+    --accent: 205 100% 41%;
+    --accent-foreground: 0 0% 100%;
+    
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 0 0% 90%;
+    --input: 0 0% 95%;
+    --ring: 0 61% 27%;
+    
+    --radius: 0.75rem;
+    
+    /* Typography Scale */
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 8px 0 hsl(0 0% 0% / 0.1);
+    --shadow-md: 0 8px 25px -5px hsl(0 0% 0% / 0.1);
+    --shadow-lg: 0 25px 50px -12px hsl(0 0% 0% / 0.15);
+    --shadow-brand: 0 10px 30px -10px hsl(var(--brand-red) / 0.3);
+    
+    /* Transitions */
+    --transition-fast: 0.15s ease-out;
+    --transition-normal: 0.3s ease-out;
+    --transition-slow: 0.5s ease-out;
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +123,111 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-body antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}
+
+@layer components {
+  /* Hero Section Styles */
+  .hero-section {
+    @apply relative overflow-hidden bg-background;
+  }
+  
+  .hero-image {
+    @apply w-full h-[60vh] object-cover transition-transform duration-[3000ms] ease-in-out;
+  }
+  
+  .hero-image:hover {
+    @apply scale-105;
+  }
+  
+  /* Page Title Styles */
+  .page-title {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-8 text-center;
+    font-family: var(--font-heading);
+  }
+  
+  /* Animation Classes */
+  .fade-in {
+    @apply opacity-0 translate-y-8 transition-all duration-700 ease-out;
+  }
+  
+  .fade-in.in-view {
+    @apply opacity-100 translate-y-0;
+  }
+  
+  .slide-in-left {
+    @apply opacity-0 -translate-x-8 transition-all duration-700 ease-out;
+  }
+  
+  .slide-in-left.in-view {
+    @apply opacity-100 translate-x-0;
+  }
+  
+  .slide-in-right {
+    @apply opacity-0 translate-x-8 transition-all duration-700 ease-out;
+  }
+  
+  .slide-in-right.in-view {
+    @apply opacity-100 translate-x-0;
+  }
+  
+  /* Brand Variants */
+  .text-brand-red {
+    @apply text-primary;
+  }
+  
+  .text-brand-yellow {
+    @apply text-secondary;
+  }
+  
+  .text-brand-blue {
+    @apply text-accent;
+  }
+  
+  .bg-brand-red {
+    @apply bg-primary;
+  }
+  
+  .bg-brand-yellow {
+    @apply bg-secondary;
+  }
+  
+  .bg-brand-blue {
+    @apply bg-accent;
+  }
+  
+  /* Hover Effects */
+  .hover-lift {
+    @apply transition-transform duration-300 ease-out hover:-translate-y-2;
+  }
+  
+  .hover-glow {
+    @apply transition-shadow duration-300 ease-out hover:shadow-brand;
+  }
+  
+  /* Navigation Styles */
+  .nav-link {
+    @apply relative text-foreground hover:text-primary transition-colors duration-300;
+  }
+  
+  .nav-link::after {
+    @apply content-[''] absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300;
+  }
+  
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+  
+  .nav-link.active {
+    @apply text-primary;
+  }
+  
+  .nav-link.active::after {
+    @apply w-full;
   }
 }
